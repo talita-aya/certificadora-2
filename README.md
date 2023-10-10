@@ -6,7 +6,7 @@ Projeto desenvolvido para a disciplina de Certificadora de Competência 2.
 <br>
 
 ## 🗳️ Repositório
-O repositório contendo o código deste projeto pode ser acessado através deste  [link](https://github.com/g-lieira/certificadora-1.git).
+O repositório contendo o código deste projeto pode ser acessado através deste  [link](https://github.com/talita-aya/certificadora-2.git).
 
 <br>
 
