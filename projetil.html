@@ -13,13 +13,40 @@
     <h1>Simulador de Movimento</h1>
     <div class="menu-buttons-container">
       <button class="menu-buttons active">Lançamento de projétil</button>
-      <button class="menu-buttons">Plano inclinado</button>
+      <a href="plano.html"><button class="menu-buttons">Plano inclinado</button></a>
     </div>
   </header>
 
   <div class="container">
     <div class="project-container">
-      
+      <div class="graphic-img">
+        <canvas id="canvas"></canvas>
+
+        <div id="results" class="results">
+          <div class="results-info">
+            <p>Altura máxima (h): <span id="height">0</span> metros</p>
+            <p>Distância (ΔS): <span id="range">0</span> metros</p>
+            <p>Tempo: <span id="time">0</span> s</p>
+            <div class="question">
+              <a href="#">
+                <img src="assets/question.svg" alt="ponto de interrogração">
+                <span>Como obter esses dados?</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="graphic-info">
+        <div class="graphic-info-item">
+          <p>Velocidade (m/s)</p>
+          <input type="number" id="velocity" min="0">
+        </div>
+        <div class="graphic-info-item">
+          <p>Ângulo (º)</p>
+          <input type="number" id="angle" min="0" max="90">
+        </div>
+        <button id="button-simulator">Simular <img src="assets/play.svg" alt="ícone para iniciar"></button>
+      </div>
     </div>
   </div>
 
@@ -60,6 +87,9 @@
       </div>
     </div>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="projetil.js"></script>
 </body>
 
 </html>

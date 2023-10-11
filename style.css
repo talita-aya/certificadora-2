@@ -12,7 +12,7 @@
 
 header {
   background-color: #4D5EBA;
-  height: 92px;
+  height: 72px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@ header {
 }
 
 header h1 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   color: #FAFAFA;
 }
@@ -31,7 +31,6 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 16px;
 }
 
 .menu-buttons {
@@ -42,6 +41,11 @@ header h1 {
   padding: 12px 24px;
   border-radius: 8px;
   width: fit-content;
+  font-size: 12px;
+}
+
+.menu-buttons a {
+  color: #FAFAFA;
 }
 
 .menu-buttons:hover {
@@ -64,11 +68,11 @@ footer {
   justify-content: space-between;
   padding: 32px 80px;
   color: #FAFAFA;
-  height: 166px;
+  height: 136px;
 }
 
 .info-container h2, p, .devs-container h2, .devs p {
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 12px;
 }
 
@@ -89,4 +93,119 @@ footer {
 
 .dev a img:hover {
   opacity: 80%;
+}
+
+.container {
+  background-color: #A0ACE9;
+  width: 100%;
+  height: calc(100vh - 208px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-container {
+  background-color: #fff;
+  display: flex;
+  width: 70%;
+  height: 85%;
+  justify-content: space-around;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.graphic-img {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  border-radius: 12px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.146);
+  margin-right: 32px;
+  padding: 12px;
+}
+
+#canvas {
+  display: flex;
+  position: absolute;
+  z-index: 10;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 100%;
+  height: fit-content;
+  font-size: 12px;
+  z-index: 9;
+  position: relative;
+  padding: 24px;
+}
+
+.results p {
+  font-size: 12px;
+}
+
+.results .question a span {
+  color: #8F8F8F;
+}
+
+.graphic-info {
+  font-size: 12px;
+  font-weight: 500;
+  width: 20%;
+  height: fit-content;
+}
+
+.graphic-info p {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+
+.graphic-info input {
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #FFF;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.146);
+  text-align: center;
+  margin-bottom: 12px;
+  width: 100%;
+}
+
+.graphic-info button {
+  border-radius: 8px;
+  background: #F6A731;
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 12px;
+}
+
+.graphic-info button:hover {
+  background-color: #e79d30;
+}
+
+#button-simulator-pause {
+  background-color: #F0C940;
+}
+
+#button-simulator-pause:hover {
+  background-color: #ddb939;
+}
+
+#button-simulator-reset {
+  background-color: #BEC5EB;
+}
+
+#button-simulator-reset:hover {
+  background-color: #abb2d6;
 }
