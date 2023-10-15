@@ -272,6 +272,7 @@ footer {
   position: absolute;
   bottom: 0;
   transform-origin: top center;
+  transform: rotate(15deg);
   margin-bottom: -50%;
   z-index: 10;
 }

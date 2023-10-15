@@ -14,7 +14,6 @@ const resetButton = document.getElementById('button-simulator-reset');
 const startButton = document.getElementById('button-simulator-plane');
 const pauseButton = document.getElementById('button-simulator-pause');
 
-
 let timer = null;
 let isPaused = false;
 
