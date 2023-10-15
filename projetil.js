@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateTrajectoryChart(dataPoints, angleRadians) {
         const labels = dataPoints.map(point => point.time.toFixed(2));
         const heights = dataPoints.map(point => point.height.toFixed(2));
-    
+
         // Calcula os pontos da linha vermelha com base no ângulo
         const angleData = [];
         for (let i = 0; i < dataPoints.length; i++) {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const y = x * Math.tan(angleRadians);
             angleData.push(y);
         }
-    
+
         const ctx = document.getElementById('canvas').getContext('2d');
         const chart = new Chart(ctx, {
             type: 'line',
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         borderColor: 'orange',
                         borderWidth: 1,
                         fill: false,
-                        borderDash: [5, 5] 
+                        borderDash: [5, 5]
                     }
                 ]
             },
@@ -97,11 +97,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         });
-    
+
         // Atualiza a posição do ângulo no gráfico
         chart.data.datasets[1].data = angleData;
         chart.update();
-    
+
         // Calcula a posição do ângulo no gráfico
         const anglePosition = {
             x: 0.1 * dataPoints[dataPoints.length - 1].time,
@@ -109,5 +109,5 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         angleInChartInput.value = `X: ${anglePosition.x.toFixed(2)}, Y: ${anglePosition.y.toFixed(2)}`;
     }
-    
+
 });
