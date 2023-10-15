@@ -1,9 +1,13 @@
-// Função para calcular o lançamento de projétil
 function calcularLancamentoProjetil() {
     const velocity = parseFloat(document.getElementById("velocity").value);
     const angle = parseFloat(document.getElementById("angle").value);
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
+
+    if (isNaN(velocity) || isNaN(angle)) {
+        alert("Insira os valores pedidos, por favor");
+        return;
+    }
 
     // ângulo de graus para radianos
     const angleRad = (angle * Math.PI) / 180;
@@ -23,10 +27,9 @@ function calcularLancamentoProjetil() {
     document.getElementById("range").textContent = range.toFixed(2);
     document.getElementById("time").textContent = time.toFixed(2);
 
-    // limpar o canvas para recomeçar
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Desenhar a reta inclinada
+    // reta do ângulo
     ctx.strokeStyle = "orange";
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -37,7 +40,7 @@ function calcularLancamentoProjetil() {
     ctx.stroke();
     ctx.closePath();
 
-    // linha pontilhada para trajetória
+    // linha pontilhada
     ctx.setLineDash([3, 3]);
 
     // trajetória do lançamento de projétil
@@ -53,7 +56,6 @@ function calcularLancamentoProjetil() {
         lastX = x;
         lastY = y;
     }
-
     ctx.strokeStyle = "#FFE0B1";
     ctx.lineWidth = 2;
     ctx.stroke();
@@ -69,7 +71,6 @@ function calcularLancamentoProjetil() {
     ctx.font = "12px Arial";
     ctx.fillText(`${angle.toFixed(0)}°`, 40, canvas.height - 10);
 
-    // Desenhar o arco interno para representar o ângulo em relação ao eixo x
     ctx.strokeStyle = "orange";
     ctx.lineWidth = 2;
     ctx.setLineDash([]);
