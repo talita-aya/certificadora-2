@@ -105,7 +105,7 @@ footer {
   justify-content: center;
 }
 
-.project-container {
+.project-container, .plane-container {
   background-color: #fff;
   display: flex;
   width: 70%;
@@ -115,7 +115,7 @@ footer {
   border-radius: 16px;
 }
 
-.graphic-img {
+.graphic-img, .plane-graphic-img {
   display: flex;
   justify-content: space-between;
   width: 80%;
@@ -125,13 +125,13 @@ footer {
   padding: 12px;
 }
 
-#canvas {
+#canvas, #canvas-plane {
   display: flex;
   position: absolute;
   z-index: 10;
 }
 
-.results {
+.results, .results-plane {
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -143,7 +143,7 @@ footer {
   padding: 24px;
 }
 
-.results p {
+.results p, .results-plane p {
   font-size: 12px;
 }
 
@@ -151,20 +151,20 @@ footer {
   color: #8F8F8F;
 }
 
-.graphic-info {
+.graphic-info, .graphic-info-plane {
   font-size: 12px;
   font-weight: 500;
   width: 20%;
   height: fit-content;
 }
 
-.graphic-info p {
+.graphic-info p, .graphic-info-plane p {
   text-align: center;
   font-size: 12px;
   margin-bottom: 5px;
 }
 
-.graphic-info input {
+.graphic-info input, .graphic-info-plane input {
   border-radius: 8px;
   padding: 8px 12px;
   background: #FFF;
@@ -174,7 +174,7 @@ footer {
   width: 100%;
 }
 
-.graphic-info button {
+.graphic-info button, .graphic-info-plane button {
   border-radius: 8px;
   background: #F6A731;
   display: flex;
@@ -190,7 +190,7 @@ footer {
   margin-top: 12px;
 }
 
-.graphic-info button:hover {
+.graphic-info button:hover, .graphic-info-plane button:hover {
   background-color: #e79d30;
 }
 
@@ -208,4 +208,40 @@ footer {
 
 #button-simulator-reset:hover {
   background-color: #abb2d6;
+}
+
+#canvas-plane {
+  width: 51%;
+  height: 51%;
+  margin-top: -12px;
+  margin-left: -12px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+#object {
+  width: 60px;
+  height: 60px;
+  background-color: #F6A731;
+  transform-origin: bottom center;
+  margin-left: 40%;
+  margin-top: -60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+#slope {
+  width: 200%;
+  height: 150%;
+  background-color: #E2E2E2;
+  position: absolute;
+  bottom: 0;
+  transform-origin: top center;
+  margin-bottom: -50%;
 }
