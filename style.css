@@ -156,6 +156,10 @@ footer {
   font-size: 10px;
 }
 
+.results-info-plane p {
+  margin-bottom: 6px;
+}
+
 .question a {
   display: flex;
   align-items: center;
