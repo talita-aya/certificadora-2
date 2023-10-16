@@ -21,17 +21,21 @@
         <div class="plane-container">
           <div class="plane-graphic-img">
             <div id="canvas-plane">
-                <div id="slope">
-                    <div id="object"><img src="assets/face-smile.svg" alt="face smile" style="width: 80%;"></div>
-                </div>
+              <div id="slope">
+                  <div id="object"><img src="assets/face-smile.svg" alt="face smile" style="width: 80%;"> </div>
+              </div>
             </div>
-    
             <div id="results-plane" class="results-plane">
               <div class="results-info-plane">
-                <p>Velocidade: <span id="speed">0</span> m/s</p>
-                <p>Distância: <span id="range-plane">0</span> metros</p>
-                <p>Aceleração: <span id="acceleration">0</span> m/s²</p>
-                <p>Tempo: <span id="time-plane">0</span> s</p>
+                <p>Força resultante (Fr): <span id="fr-result">0</span> N</p>
+                <p>Força peso (P): <span id="fp-result">0</span> N</p>
+                <p>Aceleração (a): <span id="a-result">0</span> m/s²</p>
+                <div class="question">
+                  <a href="https://brasilescola.uol.com.br/fisica/plano-inclinado.htm" target="_blank">
+                    <img src="assets/question.svg" alt="ponto de interrogração">
+                    <span>Como obter esses dados?</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -46,10 +50,10 @@
               </div>
             <div class="graphic-info-item-plane">
               <p>Ângulo (º)</p>
-              <input type="number" id="angle-plane" min="0" max="90" step="1" value="0">
+              <input type="number" id="angle-plane" min="0" max="90" step="1" value="15">
             </div>
-            <button id="button-simulator-plane">Simular <img src="assets/play.svg" alt="ícone para iniciar"></button>
-            <button id="button-simulator-pause">Pausar <img src="assets/pause.svg" alt="ícone para iniciar"></button>
+            <button id="button-simulator-plane">Simular <img src="assets/play.svg" alt="ícone para iniciar" style="width: 9px;"></button>
+            <button id="button-simulator-pause">Pausar <img src="assets/pause.svg" alt="ícone para iniciar" style="width: 9px;"></button>
             <button id="button-simulator-reset">Resetar</button>
           </div>
         </div>

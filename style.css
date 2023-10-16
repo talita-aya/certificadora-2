@@ -217,6 +217,7 @@ footer {
   font-size: 10px;
   position: relative;
   padding: 12px;
+  z-index: 10;
 }
 
 .results-info {
@@ -224,8 +225,20 @@ footer {
   z-index: 9;
 }
 
-.results p, .results-plane p {
+.results p {
   font-size: 10px;
+}
+
+.results-plane p {
+  font-size: 10px;
+}
+
+.question a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  
 }
 
 .results .question a span {
@@ -245,6 +258,10 @@ footer {
   margin-bottom: 5px;
 }
 
+.graphic-info-plane p {
+  font-size: 10px !important;
+}
+
 .graphic-info input, .graphic-info-plane input {
   border-radius: 8px;
   padding: 8px 12px;
@@ -253,6 +270,11 @@ footer {
   text-align: center;
   margin-bottom: 12px;
   width: 100%;
+}
+
+.graphic-info-plane input {
+  padding: 6px 10px;
+  margin-bottom: 10px;
 }
 
 .graphic-info button, .graphic-info-plane button {
@@ -269,6 +291,12 @@ footer {
   cursor: pointer;
   width: 100%;
   margin-top: 12px;
+}
+
+.graphic-info-plane button {
+  gap: 5px;
+  margin-top: 6px;
+
 }
 
 .graphic-info button:hover, .graphic-info-plane button:hover {
@@ -292,10 +320,8 @@ footer {
 }
 
 #canvas-plane {
-  width: 51%;
-  height: 51%;
-  margin-top: -12px;
-  margin-left: -12px;
+  width: 48.3%;
+  height: 43.3%;
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -309,6 +335,7 @@ footer {
   transform-origin: bottom center;
   margin-left: 40%;
   margin-top: -60px;
+  position: absolute;
 
   display: flex;
   align-items: center;
@@ -317,10 +344,12 @@ footer {
 
 #slope {
   width: 200%;
-  height: 150%;
+  height: 160%;
   background-color: #E2E2E2;
   position: absolute;
   bottom: 0;
   transform-origin: top center;
+  transform: rotate(15deg);
   margin-bottom: -50%;
+  z-index: 10;
 }
