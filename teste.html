@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #simulator {
+      width: 400px;
+      height: 400px;
+      position: relative;
+      background-color: #eee;
+      overflow: hidden;
+    }
+    #object {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      background-color: blue;
+    }
+    #slope {
+      width: 400px;
+      height: 10px;
+      background-color: #999;
+      position: absolute;
+      bottom: 0;
+      transform-origin: bottom center;
+    }
+    #path {
+      position: absolute;
+      width: 0;
+      border-top: 2px dashed red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simulador de Plano Inclinado Sem Atrito</h1>
+  <label for="angle">Ângulo (em graus):</label>
+  <input type="number" id="angle" min="0" max="90" step="1" value="30">
+  <br>
+  <label for="mass">Massa (em kg):</label>
+  <input type="number" id="mass" value="1">
+  <br>
+  <label for="initialVelocity">Velocidade Inicial (m/s):</label>
+  <input type="number" id="initialVelocity" value="0">
+  <br>
+  <button id="startSimulation">Iniciar Simulação</button>
+  <button id="resetSimulation">Reset</button>
+  <div id="simulator">
+    <div id="object"></div>
+    <div id="slope"></div>
+    <div id="path"></div>
+  </div>
+  <div>
+    <h2>Resultados:</h2>
+    <p>Velocidade Final (Vf): <span id="vfResult">0 m/s</span></p>
+    <p>Distância Percorrida (d): <span id="dResult">0 metros</span></p>
+    <p>Aceleração (a): <span id="aResult">0 m/s^2</span></p>
+    <p>Tempo (t): <span id="tResult">0 segundos</span></p>
+  </div>
+
+  <script>
+    const angleInput = document.getElementById("angle");
+    const massInput = document.getElementById("mass");
+    const initialVelocityInput = document.getElementById("initialVelocity");
+    const startButton = document.getElementById("startSimulation");
+    const resetButton = document.getElementById("resetSimulation");
+    const simulator = document.getElementById("simulator");
+    const object = document.getElementById("object");
+    const slope = document.getElementById("slope");
+    const path = document.getElementById("path");
+    const vfResult = document.getElementById("vfResult");
+    const dResult = document.getElementById("dResult");
+    const aResult = document.getElementById("aResult");
+    const tResult = document.getElementById("tResult");
+    let timer = null;
+    function updateAngle() {
+      const angle = angleInput.value;
+      simulator.style.transform = `rotate(${angle}deg)`;
+      slope.style.transform = `rotate(${-angle}deg)`;
+    }
+    angleInput.addEventListener("input", updateAngle);
+    function resetSimulation() {
+      clearTimeout(timer);
+      object.style.left = "0";
+      vfResult.textContent = "0 m/s";
+      dResult.textContent = "0 metros";
+      aResult.textContent = "0 m/s^2";
+      tResult.textContent = "0 segundos";
+      path.style.width = "0";
+    }
+    resetButton.addEventListener("click", resetSimulation);
+    function startSimulation() {
+      resetSimulation();
+      const angle = parseFloat(angleInput.value);
+      const mass = parseFloat(massInput.value);
+      const initialVelocity = parseFloat(initialVelocityInput.value);
+      const g = 9.81; // Aceleração devido à gravidade (m/s^2)
+      const radians = (angle * Math.PI) / 180;
+      let acceleration;
+      if (initialVelocity < 0) {
+        acceleration = g * Math.sin(radians);
+      } else {
+        acceleration = -g * Math.sin(radians);
+      }
+      const timeInterval = 10; // Intervalo de atualização em milissegundos
+      let position = 0;
+      function animate() {
+        const velocityPosition = initialVelocity + acceleration * (position / 100);
+        const newPosition = position + (velocityPosition * timeInterval) / 1000;
+        object.style.left = newPosition + "px";
+        // Atualizar o caminho tracejado (path)
+        path.style.width = parseFloat
+        path.style.width = parseFloat(path.style.width) + Math.abs(newPosition - position) + "px";
+        position = newPosition;
+        
+        if (newPosition < simulator.clientWidth - object.clientWidth) {
+          timer = setTimeout(animate, timeInterval);
+        }
+      }
+
+      animate();
+    }
+
+    startButton.addEventListener("click", startSimulation);
+  </script>
+</body>
+</html>

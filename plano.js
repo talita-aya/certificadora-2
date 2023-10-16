@@ -5,6 +5,7 @@ const massInput = document.getElementById("mass");
 const simulator = document.getElementById("canvas-plane");
 const object = document.getElementById("object");
 const slope = document.getElementById("slope");
+const path = document.getElementById("path");
 
 const frResult = document.getElementById("fr-result");
 const fpResult = document.getElementById("fp-result");
@@ -32,6 +33,7 @@ function resetSimulation() {
     fpResult.textContent = '0';
     fnResult.textContent = '0';
     aResult.textContent = '0';
+    path.style.width = "0";
 }
 
 resetButton.addEventListener('click', resetSimulation);
@@ -79,14 +81,19 @@ startButton.addEventListener('click', function() {
         fnResult.textContent = normalForce.toFixed(2);
         aResult.textContent = acceleration.toFixed(2);
 
-        const timeInterval = 15; 
+        const timeInterval = 15;
+        let position = 0 
 
         //animação que faz o bloco se mover pelo plano
         function animate(){
-            const position = parseFloat(object.style.left) || 0; //obtém posição atual do objeto em relação a esquerda
+            //const position = parseFloat(object.style.left) || 0; //obtém posição atual do objeto em relação a esquerda
             const velocityPosition = velocity + acceleration * (position/100); //ajusta a velocidade do bloco com base na aceleração
             const newPosition = position + (velocityPosition * timeInterval) / 1000; //cálcula a nova posição do objeto após um intervalo de tempo
             object.style.left = newPosition + 'px'; //nova posição atribuida 
+
+            path.style.width = parseFloat(path.style.width) + Math.abs(newPosition - position) + "px";
+            position = newPosition;
+
 
             //loop para que o objeto continue se movendo 
             if(newPosition < simulator.clientWidth - object.clientWidth){
