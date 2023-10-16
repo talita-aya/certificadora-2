@@ -358,6 +358,27 @@ footer {
   z-index: 10;
 }
 
+#path {
+  position: absolute;
+  width: 0;
+  border-top: 2px dashed #FFE0B1;
+  margin-left: 40%;
+  margin-top: -60px;
+}
+
+.align-object {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.align-object svg {
+  margin-left: 40%;
+  margin-top: -60px;
+  padding-right: 2px;
+}
+
 .title-home {
   width: 100%;
   display: flex;
