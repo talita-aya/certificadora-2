@@ -82,13 +82,13 @@ startButton.addEventListener('click', function() {
         const timeInterval = 15; 
 
         //animação que faz o bloco se mover pelo plano
-        //COMENTAR CADA LINHA (EXPLICAÇÃO)
         function animate(){
-            const position = parseFloat(object.style.left) || 0; 
-            const velocityPosition = velocity + acceleration * (position/100); 
-            const newPosition = position + (velocityPosition * timeInterval) / 1000; 
-            object.style.left = newPosition + 'px';
+            const position = parseFloat(object.style.left) || 0; //obtém posição atual do objeto em relação a esquerda
+            const velocityPosition = velocity + acceleration * (position/100); //ajusta a velocidade do bloco com base na aceleração
+            const newPosition = position + (velocityPosition * timeInterval) / 1000; //cálcula a nova posição do objeto após um intervalo de tempo
+            object.style.left = newPosition + 'px'; //nova posição atribuida 
 
+            //loop para que o objeto continue se movendo 
             if(newPosition < simulator.clientWidth - object.clientWidth){
                 timer = setTimeout(animate, 1);
             }
