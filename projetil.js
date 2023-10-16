@@ -13,8 +13,7 @@ function calcularLancamentoProjetil() {
     const angleRad = (angle * Math.PI) / 180;
 
     // altura máxima
-    const height =
-        (Math.pow(velocity, 2) * Math.pow(Math.sin(angleRad), 2)) / (2 * 9.81);
+    const height = (Math.pow(velocity, 2) * Math.pow(Math.sin(angleRad), 2)) / (2 * 9.81);
 
     // distância
     const range = (Math.pow(velocity, 2) * Math.sin(2 * angleRad)) / 9.81;
@@ -81,6 +80,4 @@ function calcularLancamentoProjetil() {
     ctx.setLineDash([]);
 }
 
-document
-    .getElementById("button-simulator")
-    .addEventListener("click", calcularLancamentoProjetil);
+document.getElementById("button-simulator").addEventListener("click", calcularLancamentoProjetil);
