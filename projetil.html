@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="simulator">
   <header>
     <h1>Simulador de Movimento</h1>
     <div class="menu-buttons-container">
@@ -33,16 +33,14 @@
         </div>
 
         <div id="results" class="results">
-          <div class="results-info">
-            <p>Altura máxima (h): <span id="height">0</span> metros</p>
-            <p>Distância (ΔS): <span id="range">0</span> metros</p>
-            <p>Tempo: <span id="time">0</span> s</p>
-            <div class="question">
-              <a href="https://brasilescola.uol.com.br/fisica/lancamento-obliquo.htm" target="_blank">
-                <img src="assets/question.svg" alt="ponto de interrogração">
-                <span>Como obter esses dados?</span>
-              </a>
-            </div>
+          <p>Altura máxima (h): <span id="height">0</span> metros</p>
+          <p>Distância (ΔS): <span id="range">0</span> metros</p>
+          <p>Tempo: <span id="time">0</span> s</p>
+          <div class="question">
+            <a href="https://brasilescola.uol.com.br/fisica/lancamento-obliquo.htm" target="_blank">
+              <img src="assets/question.svg" alt="ponto de interrogração">
+              <span>Como obter esses dados?</span>
+            </a>
           </div>
         </div>
       </div>
@@ -57,6 +55,10 @@
         </div>
         <button id="button-simulator">Simular <img src="assets/play.svg" alt="ícone para iniciar"></button>
       </div>
+    </div>
+
+    <div class="not-available">
+      <p>Este simulador não está disponível para as dimensões do seu dispositivo :(</p>
     </div>
   </div>
 

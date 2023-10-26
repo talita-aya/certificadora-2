@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="simulator">
     <header>
-        <h1>Simulador de Movimento</h1>
+        <a href="index.html"><h1>Simulador de Movimento</h1></a>
         <div class="menu-buttons-container">
             <a href="projetil.html"><button class="menu-buttons">Lançamento de projétil</button></a>
             <button class="menu-buttons active">Plano inclinado</button>
@@ -18,28 +18,35 @@
     </header>
 
     <div class="container">
-        <div class="plane-container">
-          <div class="plane-graphic-img">
-            <div id="canvas-plane">
-              <div id="slope">
+      <div class="plane-container">
+        <div class="plane-graphic-img">
+          <div id="canvas-plane">
+            <div id="slope">
+                <div class="align-object">
                   <div id="object"><img src="assets/face-smile.svg" alt="face smile" style="width: 80%;"> </div>
-              </div>
-            </div>
-            <div id="results-plane" class="results-plane">
-              <div class="results-info-plane">
-                <p>Força resultante (Fr): <span id="fr-result">0</span> N</p>
-                <p>Força peso (P): <span id="fp-result">0</span> N</p>
-                <p>Aceleração (a): <span id="a-result">0</span> m/s²</p>
-                <div class="question">
-                  <a href="https://brasilescola.uol.com.br/fisica/plano-inclinado.htm" target="_blank">
-                    <img src="assets/question.svg" alt="ponto de interrogração">
-                    <span>Como obter esses dados?</span>
-                  </a>
+                  <div id="path"></div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <circle cx="5" cy="5" r="5" fill="#FFE0B1"/>
+                    </svg>
                 </div>
-              </div>
+                
             </div>
           </div>
-          <div class="graphic-info-plane">
+          <div id="results-plane" class="results">
+            <p>Força resultante (Fr): <span id="fr-result">0</span> N</p>
+            <p>Força peso (P): <span id="fp-result">0</span> N</p>
+            <p>Força Normal (N): <span id="fn-result">0</span> N</p>
+            <p>Aceleração (a): <span id="a-result">0</span> m/s²</p>
+            <div class="question">
+              <a href="https://brasilescola.uol.com.br/fisica/plano-inclinado.htm" target="_blank">
+                <img src="assets/question.svg" alt="ponto de interrogração">
+                <span>Como obter esses dados?</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="graphic-info-plane">
+          <div class="inputs-wrapper">
             <div class="graphic-info-item-plane">
               <p>Velocidade inicial (m/s)</p>
               <input type="number" id="initial-velocity" min="0">
@@ -52,12 +59,19 @@
               <p>Ângulo (º)</p>
               <input type="number" id="angle-plane" min="0" max="90" step="1" value="15">
             </div>
+          </div>
+          <div class="buttons-wrapper">
             <button id="button-simulator-plane">Simular <img src="assets/play.svg" alt="ícone para iniciar" style="width: 9px;"></button>
             <button id="button-simulator-pause">Pausar <img src="assets/pause.svg" alt="ícone para iniciar" style="width: 9px;"></button>
             <button id="button-simulator-reset">Resetar</button>
           </div>
         </div>
       </div>
+      
+      <div class="not-available">
+        <p>Este simulador não está disponível para as dimensões do seu dispositivo :(</p>
+      </div>
+    </div>
 
     <footer>
         <div class="info-container">
