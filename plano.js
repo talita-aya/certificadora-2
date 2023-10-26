@@ -19,6 +19,23 @@ const pauseButton = document.getElementById('button-simulator-pause');
 let timer = null; //verificar se ta sendo usado
 let isPaused = false;
 
+//estrutura de dados
+const simulationData = {
+    mass: 0, //massa do objeto
+    velocity: 0, //velocidade inical
+    angle: 0, //ângulo de inclinação do plano
+    g: 9.81, //gravidade (constante)
+    radians: 0, //ângulo convertido para radiano
+    acceleration: 0, //aceleração do objeto
+    resultantForce: 0, //força resultante na direção do movimento
+    weightForce: 0, //força peso (gravidade)
+    normalForce: 0, //força normal (perpendicular ao plano)
+    timeInterval: 15, //intervalo de tempo para a animaçãp
+    position: 0, //posição atual do objeto na animação
+    newPosition: 0, //nova posição calculada durante a animação
+  };
+  
+
 //inclinação do plano
 angleInput.addEventListener('input', function(){
     const angle = angleInput.value;
@@ -34,6 +51,10 @@ function resetSimulation() {
     fnResult.textContent = '0';
     aResult.textContent = '0';
     path.style.width = "0";
+
+    //reinicialização da estrutura de dados
+    simulationData.position = 0;
+    simulationData.newPosition = 0;
 }
 
 resetButton.addEventListener('click', resetSimulation);
@@ -49,54 +70,50 @@ pauseButton.addEventListener('click', function(){
 
 
 startButton.addEventListener('click', function() {
-    const mass = parseFloat(massInput.value);
-    const velocity = parseFloat(velocityInput.value);
-    const angle = parseFloat(angleInput.value);
+    simulationData.mass = parseFloat(massInput.value);
+    simulationData.velocity = parseFloat(velocityInput.value);
+    simulationData.angle = parseFloat(angleInput.value);
 
-    if(!isNaN(velocity) && !isNaN(mass)){
+    if(!isNaN(simulationData.velocity) && !isNaN(simulationData.mass)){
         resetSimulation();
 
-        //aceleração fixa, devido a gravidade (m/s²)
-        const g = 9.81; 
-
         //transformando o angulo em radiano
-        const radians = (angle*Math.PI)/180;
+        simulationData.radians = (simulationData.angle * Math.PI)/180;
 
         //cálculo da aceleração (a)
-        const acceleration = g*Math.sin(radians);
+        simulationData.acceleration = simulationData.g * Math.sin(simulationData.radians);
 
         //cálculo da força resultante (Fr)
-        const resultantForce = mass * acceleration;
+        simulationData.resultantForce = simulationData.mass * simulationData.acceleration;
 
         //cálculo da força peso (P)
-        const weightForce = mass * g;
+        simulationData.weightForce = simulationData.mass * simulationData.g;
 
         //inserir força normal: Fn=Py -> Fn=Pcos(º) = mgcos(º) 
-        const normalForce = mass * g * Math.cos(radians);
+        simulationData.normalForce = simulationData.mass * simulationData.g * Math.cos(simulationData.radians);
 
 
         //apresentar os resultados
-        frResult.textContent = resultantForce.toFixed(2);
-        fpResult.textContent = weightForce.toFixed(2);
-        fnResult.textContent = normalForce.toFixed(2);
-        aResult.textContent = acceleration.toFixed(2);
+        frResult.textContent = simulationData.resultantForce.toFixed(2);
+        fpResult.textContent = simulationData.weightForce.toFixed(2);
+        fnResult.textContent = simulationData.normalForce.toFixed(2);
+        aResult.textContent = simulationData.acceleration.toFixed(2);
 
-        const timeInterval = 15;
         let position = 0 
 
         //animação que faz o bloco se mover pelo plano
         function animate(){
             //const position = parseFloat(object.style.left) || 0; //obtém posição atual do objeto em relação a esquerda
-            const velocityPosition = velocity + acceleration * (position/100); //ajusta a velocidade do bloco com base na aceleração
-            const newPosition = position + (velocityPosition * timeInterval) / 1000; //cálcula a nova posição do objeto após um intervalo de tempo
-            object.style.left = newPosition + 'px'; //nova posição atribuida 
+            const velocityPosition = simulationData.velocity + simulationData.acceleration * (position/100); //ajusta a velocidade do bloco com base na aceleração
+            simulationData.newPosition = position + (velocityPosition * simulationData.timeInterval) / 1000; //cálcula a nova posição do objeto após um intervalo de tempo
+            object.style.left = simulationData.newPosition + 'px'; //nova posição atribuida 
 
-            path.style.width = parseFloat(path.style.width) + Math.abs(newPosition - position) + "px";
-            position = newPosition;
+            path.style.width = parseFloat(path.style.width) + Math.abs(simulationData.newPosition - position) + "px";
+            position = simulationData.newPosition;
 
 
             //loop para que o objeto continue se movendo 
-            if(newPosition < simulator.clientWidth - object.clientWidth){
+            if(simulationData.newPosition < simulator.clientWidth - object.clientWidth){
                 timer = setTimeout(animate, 1);
             }
         }
