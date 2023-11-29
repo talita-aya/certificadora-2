@@ -321,6 +321,26 @@ footer .dev a img:hover {
   color: #8F8F8F;
 }
 
+.downloadButton {
+  background-color: #F6A731;
+  border-radius: 8px;
+  display: flex;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  min-width: 140px;
+  margin-top: 20px;
+}
+
+.downloadButton:hover {
+  background-color: #e79d30;
+}
+
 .graphic-info, .graphic-info-plane {
   font-size: 12px;
   font-weight: 500;

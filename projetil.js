@@ -1,12 +1,19 @@
+let velocity, angle;
+
+document.getElementById("button-simulator").addEventListener("click", calcularLancamentoProjetil);
+document.getElementById("downloadButton").addEventListener("click", baixarDados);
+
 function calcularLancamentoProjetil() {
-    const velocity = parseFloat(document.getElementById("velocity").value);
-    const angle = parseFloat(document.getElementById("angle").value);
+    velocity = parseFloat(document.getElementById("velocity").value);
+    angle = parseFloat(document.getElementById("angle").value);
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
 
     if (isNaN(velocity) || isNaN(angle)) {
         alert("Insira os valores pedidos, por favor");
         return;
+    } else {
+        
     }
 
     const projectile = {
@@ -86,4 +93,10 @@ function calcularLancamentoProjetil() {
     ctx.setLineDash([]);
 }
 
-document.getElementById("button-simulator").addEventListener("click", calcularLancamentoProjetil);
+function baixarDados() {
+    if (isNaN(velocity) || isNaN(angle)) {
+        alert("Utilize o simulador antes, por favor");
+        return;
+    } else {
+    }
+}
