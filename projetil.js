@@ -1,4 +1,4 @@
-let velocity, angle;
+let velocity, angle, canvas, projectile;
 
 document.getElementById("button-simulator").addEventListener("click", calcularLancamentoProjetil);
 document.getElementById("downloadButton").addEventListener("click", baixarDados);
@@ -6,17 +6,17 @@ document.getElementById("downloadButton").addEventListener("click", baixarDados)
 function calcularLancamentoProjetil() {
     velocity = parseFloat(document.getElementById("velocity").value);
     angle = parseFloat(document.getElementById("angle").value);
-    const canvas = document.getElementById("canvas");
+    canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
 
     if (isNaN(velocity) || isNaN(angle)) {
         alert("Insira os valores pedidos, por favor");
         return;
     } else {
-        
+
     }
 
-    const projectile = {
+    projectile = {
         velocity: velocity,
         angle: angle,
         angleRad: (angle * Math.PI) / 180,
@@ -93,10 +93,52 @@ function calcularLancamentoProjetil() {
     ctx.setLineDash([]);
 }
 
+
 function baixarDados() {
-    if (isNaN(velocity) || isNaN(angle)) {
+    if (!velocity || isNaN(velocity) || isNaN(angle) || !projectile) {
         alert("Utilize o simulador antes, por favor");
         return;
-    } else {
     }
+
+    
+    const data = [];
+
+    // header da tabela
+    const headers = "Tempo (s); Distancia (m); Altura (m); Velocidade (m/s)";
+
+    for (let t = 0; t <= projectile.time; t += 0.1) {
+        const v0x = velocity * Math.cos(projectile.angleRad);
+        const v0y = velocity * Math.sin(projectile.angleRad);
+        const a = -9.81;
+
+        // calcular a posição no tempo atual
+        const x = v0x * t;
+        const y = v0y * t + 0.5 * a * t * t;
+
+        // calcular a velocidade no tempo atual
+        const vx = v0x;
+        const vy = v0y + a * t;
+
+        // calcular a velocidade 
+        const v = Math.sqrt(vx ** 2 + vy ** 2);
+
+        data.push(`${t.toFixed(2)};${x.toFixed(2)};${y.toFixed(2)};${v.toFixed(2)}`);
+    }
+
+    // última linha
+    data.push(`${projectile.time.toFixed(2)};${projectile.range.toFixed(2)};${'0.00'};${'0.00'}`);
+
+    const csvContent = `${headers}\n${data.join("\n")}`;
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = "projectile_data.csv";
+
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+
+    document.body.removeChild(downloadLink);
 }
