@@ -312,34 +312,43 @@ footer .dev a img:hover {
   margin-bottom: 6px;
 }
 
+.question {
+  margin-top: 5px;
+}
+
 .question a {
   display: flex;
   gap: 3px;
+}
+
+.question a img {
+  width: 7%;
 }
 
 .results .question a span {
   color: #8F8F8F;
 }
 
-.downloadButton {
-  background-color: #F6A731;
+.downloadButton button {
+  background-color: #fff;
   border-radius: 8px;
-  display: flex;
-  padding: 8px 12px;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
+  text-decoration: underline;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  width: 100%;
-  min-width: 140px;
-  margin-top: 20px;
+  width: fit-content;
+  min-width: 100px;
+  color: #F6A731;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
-.downloadButton:hover {
-  background-color: #e79d30;
+.downloadButton button img {
+  width: 18%;
 }
+
 
 .graphic-info, .graphic-info-plane {
   font-size: 12px;
