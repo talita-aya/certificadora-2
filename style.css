@@ -292,6 +292,7 @@ footer .dev a img:hover {
   border-radius: 12px;
   display: flex;
   flex-direction: column;
+  align-items: end;
   gap: 4px;
   z-index: 50;
 }
@@ -327,6 +328,12 @@ footer .dev a img:hover {
 
 .results .question a span {
   color: #8F8F8F;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .downloadButton button {
