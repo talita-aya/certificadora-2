@@ -126,7 +126,7 @@ class ProjectileSimulator {
         const downloadLink = document.createElement("a");
 
         downloadLink.href = window.URL.createObjectURL(blob);
-        downloadLink.download = "projectile_data.csv";
+        downloadLink.download = "dados_projetil.csv";
 
         document.body.appendChild(downloadLink);
         downloadLink.click();
