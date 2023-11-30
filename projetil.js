@@ -1,3 +1,4 @@
+// classe do projétil (características e cálculos)
 class Projectile {
     constructor(velocity, angle) {
         this.velocity = velocity;
@@ -15,6 +16,7 @@ class Projectile {
     }
 }
 
+// classe apresentação dos resultados
 class ProjectileSimulator {
     constructor() {
         this.velocity = 0;
@@ -29,6 +31,7 @@ class ProjectileSimulator {
         this.canvas = document.getElementById("canvas");
     }
 
+    // calcular valores de saída
     calculateProjectile() {
         this.velocity = parseFloat(document.getElementById("velocity").value);
         this.angle = parseFloat(document.getElementById("angle").value);
@@ -45,12 +48,14 @@ class ProjectileSimulator {
         this.drawTrajectory();
     }
 
+    // mostrar resultados
     displayResults() {
         document.getElementById("height").textContent = this.projectile.height.toFixed(2);
         document.getElementById("range").textContent = this.projectile.range.toFixed(2);
         document.getElementById("time").textContent = this.projectile.time.toFixed(2);
     }
 
+    // desenhar trajetória
     drawTrajectory() {
         const ctx = this.canvas.getContext("2d");
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -107,7 +112,7 @@ class ProjectileSimulator {
         ctx.setLineDash([]);
     }
     
-
+    // arquivo para baixar
     downloadData() {
         if (!this.velocity || isNaN(this.velocity) || isNaN(this.angle) || !this.projectile) {
             alert("Utilize o simulador antes, por favor");
@@ -128,6 +133,7 @@ class ProjectileSimulator {
         document.body.removeChild(downloadLink);
     }
 
+    // dados do arquivo para baixar
     generateData() {
         const data = [];
 
@@ -150,6 +156,5 @@ class ProjectileSimulator {
     }
 }
 
-// Uso da classe
 const simulator = new ProjectileSimulator();
 simulator.initialize();
