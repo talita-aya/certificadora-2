@@ -1,125 +1,198 @@
-const angleInput = document.getElementById("angle-plane");
-const velocityInput = document.getElementById("initial-velocity");
-const massInput = document.getElementById("mass");
-
-const simulator = document.getElementById("canvas-plane");
-const object = document.getElementById("object");
-const slope = document.getElementById("slope");
-const path = document.getElementById("path");
-
-const frResult = document.getElementById("fr-result");
-const fpResult = document.getElementById("fp-result");
-const fnResult = document.getElementById("fn-result");
-const aResult = document.getElementById("a-result");
-
-const resetButton = document.getElementById('button-simulator-reset');
-const startButton = document.getElementById('button-simulator-plane');
-const pauseButton = document.getElementById('button-simulator-pause');
-
-let timer = null; //verificar se ta sendo usado
-let isPaused = false;
-
-//estrutura de dados
-const simulationData = {
-    mass: 0, //massa do objeto
-    velocity: 0, //velocidade inical
-    angle: 0, //ângulo de inclinação do plano
-    g: 9.81, //gravidade (constante)
-    radians: 0, //ângulo convertido para radiano
-    acceleration: 0, //aceleração do objeto
-    resultantForce: 0, //força resultante na direção do movimento
-    weightForce: 0, //força peso (gravidade)
-    normalForce: 0, //força normal (perpendicular ao plano)
-    timeInterval: 15, //intervalo de tempo para a animaçãp
-    position: 0, //posição atual do objeto na animação
-    newPosition: 0, //nova posição calculada durante a animação
-  };
+class Simulation {
+    constructor(angleInput, velocityInput, massInput) {
+      this.angleInput = angleInput;
+      this.velocityInput = velocityInput;
+      this.massInput = massInput;
+      this.mass = 0;
+      this.velocity = 0;
+      this.angle = 15; 
+      this.g = 9.81;
+      this.radians = 0;
+      this.acceleration = 0;
+      this.resultantForce = 0;
+      this.weightForce = 0;
+      this.normalForce = 0;
+      this.timeInterval = 15;
+      this.position = 0;
+      this.newPosition = 0;
   
-
-//inclinação do plano
-angleInput.addEventListener('input', function(){
-    const angle = angleInput.value;
-    slope.style.transform = `rotate(${angle}deg)`;
-});
-
-function resetSimulation() {
-    clearTimeout(timer);
-    isPaused = false;
-    object.style.left = '0';
-    frResult.textContent = '0';
-    fpResult.textContent = '0';
-    fnResult.textContent = '0';
-    aResult.textContent = '0';
-    path.style.width = "0";
-
-    //reinicialização da estrutura de dados
-    simulationData.position = 0;
-    simulationData.newPosition = 0;
-}
-
-resetButton.addEventListener('click', resetSimulation);
-
-pauseButton.addEventListener('click', function(){
-    if (!isPaused) {
-        isPaused = true;
-        clearTimeout(timer);
-      } else {
-        isPaused = false;
-      }
-});
-
-
-startButton.addEventListener('click', function() {
-    simulationData.mass = parseFloat(massInput.value);
-    simulationData.velocity = parseFloat(velocityInput.value);
-    simulationData.angle = parseFloat(angleInput.value);
-
-    if(!isNaN(simulationData.velocity) && !isNaN(simulationData.mass)){
-        resetSimulation();
-
-        //transformando o angulo em radiano
-        simulationData.radians = (simulationData.angle * Math.PI)/180;
-
-        //cálculo da aceleração (a)
-        simulationData.acceleration = simulationData.g * Math.sin(simulationData.radians);
-
-        //cálculo da força resultante (Fr)
-        simulationData.resultantForce = simulationData.mass * simulationData.acceleration;
-
-        //cálculo da força peso (P)
-        simulationData.weightForce = simulationData.mass * simulationData.g;
-
-        //inserir força normal: Fn=Py -> Fn=Pcos(º) = mgcos(º) 
-        simulationData.normalForce = simulationData.mass * simulationData.g * Math.cos(simulationData.radians);
-
-
-        //apresentar os resultados
-        frResult.textContent = simulationData.resultantForce.toFixed(2);
-        fpResult.textContent = simulationData.weightForce.toFixed(2);
-        fnResult.textContent = simulationData.normalForce.toFixed(2);
-        aResult.textContent = simulationData.acceleration.toFixed(2);
-
-        let position = 0 
-
-        //animação que faz o bloco se mover pelo plano
-        function animate(){
-            //const position = parseFloat(object.style.left) || 0; //obtém posição atual do objeto em relação a esquerda
-            const velocityPosition = simulationData.velocity + simulationData.acceleration * (position/100); //ajusta a velocidade do bloco com base na aceleração
-            simulationData.newPosition = position + (velocityPosition * simulationData.timeInterval) / 1000; //cálcula a nova posição do objeto após um intervalo de tempo
-            object.style.left = simulationData.newPosition + 'px'; //nova posição atribuida 
-
-            path.style.width = parseFloat(path.style.width) + Math.abs(simulationData.newPosition - position) + "px";
-            position = simulationData.newPosition;
-
-
-            //loop para que o objeto continue se movendo 
-            if(simulationData.newPosition < simulator.clientWidth - object.clientWidth){
-                timer = setTimeout(animate, 1);
-            }
-        }
-        animate();
-    }else {
-        alert("Os dados inseridos são inválidos, tente novamente");
+      this.angleInput.addEventListener('input', () => this.handleAngleInput());
     }
+  
+    handleAngleInput() {
+      const angle = this.angleInput.value;
+      slope.style.transform = `rotate(${angle}deg)`;
+      this.angle = parseFloat(angle);
+      this.calculateValues();
+    }
+  
+    calculateValues() {
+      this.radians = (this.angle * Math.PI) / 180;
+      this.acceleration = this.g * Math.sin(this.radians);
+      this.resultantForce = this.mass * this.acceleration;
+      this.weightForce = this.mass * this.g;
+      this.normalForce = this.mass * this.g * Math.cos(this.radians);
+    }
+
     
-});
+  }
+  
+  class Animation {
+    constructor(simulation, object, path, simulator) {
+      this.simulation = simulation;
+      this.object = object;
+      this.path = path;
+      this.simulator = simulator;
+      this.timer = null;
+      this.isPaused = false;
+      this.elapsedTime = 0; //rastrear o tempo decorrido
+    }
+  
+    resetAnimation() {
+      clearTimeout(this.timer);
+      this.simulation.position = 0;
+      this.simulation.newPosition = 0;
+      this.object.style.left = '0';
+      this.path.style.width = "0";
+      this.elapsedTime = 0;
+    }
+  
+    animate() {
+      const velocityPosition =
+        this.simulation.velocity + this.simulation.acceleration * (this.simulation.position / 100);
+      this.simulation.newPosition =
+        this.simulation.position + (velocityPosition * this.simulation.timeInterval) / 1000;
+      this.object.style.left = this.simulation.newPosition + 'px';
+      this.path.style.width =
+        parseFloat(this.path.style.width) + Math.abs(this.simulation.newPosition - this.simulation.position) + "px";
+      this.simulation.position = this.simulation.newPosition;
+  
+      this.elapsedTime += this.simulation.timeInterval / 1000; // Atualiza o tempo decorrido
+
+      if (this.simulation.newPosition < this.simulator.clientWidth - this.object.clientWidth) {
+        this.timer = setTimeout(() => this.animate(), 1);
+      }
+    }
+
+    getElapsedTime() {
+        return this.elapsedTime;
+    }
+  }
+  
+  // Elementos do DOM
+  const angleInput = document.getElementById("angle-plane");
+  const velocityInput = document.getElementById("initial-velocity");
+  const massInput = document.getElementById("mass");
+  const simulator = document.getElementById("canvas-plane");
+  const object = document.getElementById("object");
+  const slope = document.getElementById("slope");
+  const path = document.getElementById("path");
+  
+  // Resultados
+  const frResult = document.getElementById("fr-result");
+  const fpResult = document.getElementById("fp-result");
+  const fnResult = document.getElementById("fn-result");
+  const aResult = document.getElementById("a-result");
+  
+  // Botões
+  const resetButton = document.getElementById('button-simulator-reset');
+  const startButton = document.getElementById('button-simulator-plane');
+  const pauseButton = document.getElementById('button-simulator-pause');
+  const downloadButton = document.getElementById('download-button');
+
+    downloadButton.addEventListener('click', function () {
+        const results = calculateResults();
+
+        if (!isNaN(simulation.velocity) && !isNaN(simulation.mass)) {
+            alert("Utilize o simulador antes, por favor");
+            return;
+        }
+
+        // Criação do conteúdo CSV
+        const csvContent = "Tempo (s); Distancia (m); Velocidade (m/s)\n" +
+                        results.map(result => result.time.toFixed(2) + ";" + result.distance.toFixed(2) + ";" + result.velocity.toFixed(2)).join("\n");
+
+        // Criação de um objeto Blob para o conteúdo CSV
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+
+        // Criação de um link para download
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'dados_plano.csv';
+
+        // Adiciona o link ao corpo do documento e realiza o clique para iniciar o download
+        document.body.appendChild(link);
+        link.click();
+
+        // Remove o link após o download
+        document.body.removeChild(link);
+    });
+
+    function calculateResults() {
+        const results = [];
+        const elapsedTime = animation.getElapsedTime();
+
+        for(let i=0; i <= elapsedTime; i+=0.1) { // calcula até que a simulação seja pausada
+          const velocity = simulation.velocity + simulation.acceleration * i;
+          const distance = simulation.velocity * i + 0.5 * simulation.acceleration * i * i;
+         
+          results.push({
+            time: i,
+            velocity: velocity,
+            distance: distance,
+          });
+        }
+
+        // Exibe os resultados no console
+        //results.forEach(result => {
+        //    console.log(`Tempo: ${result.time.toFixed(2)}}s, Distancia: ${result.distance.toFixed(2)}m, Velocidade: ${result.velocity.toFixed(2)}m/s`);
+        //});
+      
+        return results;
+      }
+
+  
+  // Criar instância da classe Simulation
+  const simulation = new Simulation(angleInput, velocityInput, massInput);
+  
+  // Criar instância da classe Animation
+  const animation = new Animation(simulation, object, path, simulator);
+  
+  function resetSimulationAndAnimation() {
+    simulation.calculateValues();
+    animation.resetAnimation();
+  }
+  
+  resetButton.addEventListener('click', resetSimulationAndAnimation);
+  
+  pauseButton.addEventListener('click', function () {
+    if (!animation.isPaused) {
+        clearTimeout(animation.timer);
+        animation.isPaused = true;
+    } else {
+      animation.isPaused = false;
+    }
+
+    animation.isPaused = false;
+  });
+  
+  startButton.addEventListener('click', function () {
+    simulation.mass = parseFloat(massInput.value);
+    simulation.velocity = parseFloat(velocityInput.value);
+  
+    if (!isNaN(simulation.velocity) && !isNaN(simulation.mass)) {
+      resetSimulationAndAnimation();
+      simulation.calculateValues();
+  
+      // Apresentar os resultados
+      frResult.textContent = simulation.resultantForce.toPrecision(4);
+      fpResult.textContent = simulation.weightForce.toPrecision(4);
+      fnResult.textContent = simulation.normalForce.toPrecision(4);
+      aResult.textContent = simulation.acceleration.toPrecision(4);
+  
+      // Iniciar a animação
+      animation.animate();
+    } else {
+      alert("Os dados inseridos são inválidos, tente novamente");
+    }
+  });
