@@ -48,6 +48,11 @@ class Animation {
         this.elapsedTime = 0; // rastrear o tempo decorrido
     }
 
+    // Método para atualizar o tempo no HTML
+    updateElapsedTime() {
+        document.getElementById("time").textContent = this.elapsedTime.toFixed(2);
+    }
+
     //reiniciar simulação
     resetAnimation() {
         clearTimeout(this.timer);
@@ -70,6 +75,7 @@ class Animation {
         this.calculator.position = this.calculator.newPosition;
 
         this.elapsedTime += this.calculator.timeInterval / 1000; // Atualiza o tempo decorrido
+        this.updateElapsedTime(); // Atualiza o tempo no HTML
 
         if (this.calculator.newPosition < this.simulator.clientWidth - this.object.clientWidth) {
             this.timer = setTimeout(() => this.animate(), 1);

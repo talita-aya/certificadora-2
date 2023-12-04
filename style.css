@@ -313,6 +313,17 @@ footer .dev a img:hover {
   margin-bottom: 6px;
 }
 
+.time {
+  height: 95%;
+  display: flex;
+  position: absolute;
+  align-items: flex-end;
+  z-index: 999;
+}
+.time p{
+  font-size: 13px;
+}
+
 .question {
   margin-top: 5px;
 }
