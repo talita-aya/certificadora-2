@@ -112,7 +112,6 @@ class SimulationApp {
         this.pauseButton = document.getElementById('button-simulator-pause');
         this.downloadButton = document.getElementById('download-button');
 
-
         // Criar instância da classe Calculator
         this.calculator = new Calculator(this.angleInput, this.velocityInput, this.massInput);
 
@@ -120,18 +119,21 @@ class SimulationApp {
         this.animation = new Animation(this.calculator, this.object, this.path, this.simulator);
 
         this.resetButton.addEventListener('click', () => this.resetSimulationAndAnimation());
-
         this.pauseButton.addEventListener('click', () => this.togglePause());
-
         this.startButton.addEventListener('click', () => this.startSimulation());
-
         this.downloadButton.addEventListener('click', () => this.downloadCSV());
     }
 
     //reinicar a simulação
     resetSimulationAndAnimation() {
+        // Calcular os valores e resetar a animação
         this.calculator.calculateValues();
         this.animation.resetAnimation();
+
+        this.frResult.textContent = "0";
+        this.fpResult.textContent = "0";
+        this.fnResult.textContent = "0";
+        this.aResult.textContent = "0";
     }
 
     //pausar a simulação
