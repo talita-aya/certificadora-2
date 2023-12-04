@@ -61,6 +61,7 @@ class Animation {
         this.object.style.left = '0';
         this.path.style.width = "0";
         this.elapsedTime = 0;
+        this.updateElapsedTime();
     }
 
     //animação de movimento do bloco
