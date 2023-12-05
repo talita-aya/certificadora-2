@@ -5,6 +5,11 @@ Projeto desenvolvido para a disciplina de Certificadora de Competência 2.
 
 <br>
 
+## 🎬 Vídeo de apresentação
+O vídeo de apresentação da aplicação pode ser acessada pelo [link](https://drive.google.com/file/d/1pfEYOtSfNR3swu8YAKpm425Cb3EkDRJe/view).
+
+<br>
+
 ## 🗳️ Repositório
 O repositório contendo o código deste projeto pode ser acessado através deste  [link](https://github.com/talita-aya/certificadora-2.git).
 
